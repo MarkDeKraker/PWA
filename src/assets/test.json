@@ -1,0 +1,153 @@
+{
+    "data": [
+    {
+      "project": {
+        "id": 1,
+        "title": "Natuurdekkers",
+        "slug": "natuurdekkers",
+        "header_image": "https://cmgt.hr.nl/storage/uploads/1/conversions/garden-header.webp",
+        "tagline": "Interactieve daktuin die bijdraagt aan de energietransitie",
+        "description": "Natuurdekkers is een website die informatie geeft over groene daken en waar je stapsgewijs doorheen kan om zo door middel van een AI (recommender system) uit te vinden wat voor groen dak het best bij jou past en hoe je aan de slag kan gaan met het implementeren hiervan.\r\n\r\nVoor het recommender system gebruiken wij het K-Nearest-Neighbour algoritme. De gebruiker voert zijn dak specificaties in en de gewenste specificaties van het groene dak. Op de achtergrond stelt de AI op basis van de ingevoerde gegevens een advies op.",
+        "author": "TLE Team 8",
+        "youtube": null,
+        "screenshots": [
+          "https://cmgt.hr.nl/storage/uploads/43/conversions/162375977660c89ba0ee49d-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/44/conversions/162375977660c89ba0ee10b-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/45/conversions/162375977660c89ba0edfa1-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/46/conversions/162375977660c89ba0ee05d-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/47/conversions/162375977660c89ba0edc80-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/48/conversions/162375977660c89ba0edd66-thumbnail.webp"
+        ],
+        "spotlight": 1,
+        "isValidated": 1,
+        "tags": [
+          {
+            "id": 2,
+            "name": "Jaar 2"
+          },
+          {
+            "id": 10,
+            "name": "Web"
+          }
+        ],
+        "created_at": "2022-05-11T00:00:00.000000Z",
+        "updated_at": "2022-08-26T19:39:31.000000Z"
+      },
+      "links": {
+        "self": "https://cmgt.hr.nl/api/projects/natuurdekkers",
+        "collection": "https://cmgt.hr.nl/api/projects/spotlight"
+      }
+    },
+    {
+      "project": {
+        "id": 2,
+        "title": "Hackable Hexagon Lamp",
+        "slug": "hackable-hexagon-lamp",
+        "header_image": "https://cmgt.hr.nl/storage/uploads/3/conversions/lamp-header.webp",
+        "tagline": "Interactieve modulaire moodlamp",
+        "description": "De HexLamp is een plafond, wand en staande decoratie lamp die inzetbaar voor veel verschillende doelen.\r\n\r\nHet is een hackable lamp en maakt gebruik van programmeerbare RGB leds om vele verschillende effecten, patronen en kleuren te tonen. Naast het decoratieve nut heb ik er ook al een klok van gemaakt, kan hij bij het binnenkomen van notificaties licht gaan geven, dienen als een wake up light en als visualizer dienen voor muziek.\r\n\r\nDe lamp is gemaakt met een lasersnijder, Neopixels, een vaste hand en een hoop geduld.",
+        "author": "Tim Borowy",
+        "youtube": "44XnjCtleKg",
+        "screenshots": [
+          "https://cmgt.hr.nl/storage/uploads/49/conversions/16103987135ffcbbf96a731-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/50/conversions/16103987135ffcbbf96a3c6-thumbnail.webp"
+        ],
+        "spotlight": 1,
+        "isValidated": 1,
+        "tags": [
+          {
+            "id": 2,
+            "name": "Jaar 2"
+          },
+          {
+            "id": 6,
+            "name": "IoT"
+          },
+          {
+            "id": 7,
+            "name": "Making"
+          }
+        ],
+        "created_at": "2022-05-11T00:00:00.000000Z",
+        "updated_at": "2022-07-13T09:45:01.000000Z"
+      },
+      "links": {
+        "self": "https://cmgt.hr.nl/api/projects/hackable-hexagon-lamp",
+        "collection": "https://cmgt.hr.nl/api/projects/spotlight"
+      }
+    },
+    {
+      "project": {
+        "id": 5,
+        "title": "The Musicmixer",
+        "slug": "music-mixer",
+        "header_image": "https://cmgt.hr.nl/storage/uploads/54/conversions/MicrosoftTeams-image-header.webp",
+        "tagline": "Get music recommendations based on your spotify data.",
+        "description": "The musicmixer verbindt met je spotify account. Vervolgens wordt musikale data uit jouw playlists geanalyseerd, en op basis daarvan nieuwe muziek opgehaald. \r\n\r\nJij hebt zelf in de hand welke muzikale elementen the Musicmixer gebruikt om nieuwe muziek te zoeken. Hiermee kan je heel snel en op een innovatieve manier gericht nieuwe muziek ontdekken!\r\n\r\nThis app is built using a python backend, with flask. On the frontend jinja templates are combined with plain javascript for data visualization & animations.\r\n\r\nSource code: https://github.com/basekkelenkamp/Musicmixer",
+        "author": "Bas Ekkelenkamp",
+        "youtube": "z3bYWxFV8mA",
+        "screenshots": [
+          "https://cmgt.hr.nl/storage/uploads/55/conversions/165597938862b43d7c675cd-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/56/conversions/165529007362a9b8d93f4ec-thumbnail.webp"
+        ],
+        "spotlight": 1,
+        "isValidated": 1,
+        "tags": [
+          {
+            "id": 3,
+            "name": "Jaar 3"
+          },
+          {
+            "id": 10,
+            "name": "Web"
+          }
+        ],
+        "created_at": "2022-05-11T00:00:00.000000Z",
+        "updated_at": "2022-07-13T09:42:03.000000Z"
+      },
+      "links": {
+        "self": "https://cmgt.hr.nl/api/projects/music-mixer",
+        "collection": "https://cmgt.hr.nl/api/projects/spotlight"
+      }
+    },
+    {
+      "project": {
+        "id": 6,
+        "title": "IP-Car",
+        "slug": "ip-car",
+        "header_image": "https://cmgt.hr.nl/storage/uploads/331/conversions/dominique-startup1-header.webp",
+        "tagline": "Rij oneindig ver met de IP-Car",
+        "description": "In mijn vrije tijd heb ik de \"IP-Car\" ontwikkeld. Dit is een omgebouwde RC auto die aangestuurd kan worden over internet met een Playstation 4 controller. De IP- Car bestaat uit verschillende onderdelen waarvan de software het meest complex is. In de eerste screenshot is goed te zien hoe de verschillende onderdelen met elkaar zijn verbonden.\r\n\r\nDe PS4 controller is verbonden via bluetooth met de smartphone. Op de smartphone is de pagina stepverder.nl geladen. Via de GamepadAPI komt data van de controller binnen. Vervolgens wordt de data via Socket.io naar de server gestuurd die het weer doorstuurt naar de IP-Car. In de IP-Car zit een Raspberry pi met 4G dongle die alle data ontvangt en verwerkt. Op de Raspberry Pi zit een camera aangesloten die het beeld via WebRTC kan livestreamen, zo kan je in realtime op je smartphone zien waar je rijdt.\r\n\r\nRaspberry Pi\r\nOp de Raspberry Pi heb ik een klein scriptje geschreven in Python wat automatisch opstart als de Raspberry Pi wordt aangezet. Zodra er internet verbinding is zal hij een Chromium pagina opstarten waar hij naar de broadcast pagina van stepverder.nl gaat. Via deze pagina zal hij het beeld van de camera livestreamen . \r\n\r\nZodra hij deze heeft opgestart en er een socket.io verbinding is tussen de Server en de Raspberry pi kan er data worden gestuurd. Binnenkomende data wordt omgezet en gestuurd naar de ESC via PWM signalen. In de IP-Car zit een 14,6V Lipo accu. Om de spanning omlaag te brengen voor de Raspberry Pi en de stuur servo heb ik gebruik gemaakt van twee instelbare buck converters. (Zie 3de screenshot)\r\n\r\nOm de IP-Car te kunnen laten rijden over 4G moet er een zogenaamde “turn server” worden geconfigureerd. Omdat de mogelijkheden over 4G erg beperkt zijn. Op een device wat verbonden is over 4G kunnen bijvoorbeeld niet zomaar poorten open gezet worden. De turn server zorgt ervoor dat de data wordt weerlegt naar de server waardoor die het “zware” werk doet. Uiteindelijk is het mij gelukt om de IP-Car op deze manier via een 4G netwerk te laten rijden.",
+        "author": "Dominique de Vos",
+        "youtube": "rWkAk9bbLmA",
+        "screenshots": [
+          "https://cmgt.hr.nl/storage/uploads/57/conversions/1613553048602cdd9891754-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/58/conversions/1613553048602cdd989100d-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/59/conversions/ipcar-large-thumbnail.webp",
+          "https://cmgt.hr.nl/storage/uploads/332/conversions/dominique-startup2-thumbnail.webp"
+        ],
+        "spotlight": 1,
+        "isValidated": 1,
+        "tags": [
+          {
+            "id": 3,
+            "name": "Jaar 3"
+          },
+          {
+            "id": 6,
+            "name": "IoT"
+          },
+          {
+            "id": 7,
+            "name": "Making"
+          }
+        ],
+        "created_at": "2022-05-11T00:00:00.000000Z",
+        "updated_at": "2022-11-10T09:27:17.000000Z"
+      },
+      "links": {
+        "self": "https://cmgt.hr.nl/api/projects/ip-car",
+        "collection": "https://cmgt.hr.nl/api/projects/spotlight"
+      }
+    }
+]}
