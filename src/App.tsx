@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Root } from "./types/ShowCases";
 import ProjectComp from "./components/ProjectComp";
-import FadeIn from "react-fade-in/lib/FadeIn";
 
 function App() {
   const [projects, setProjects] = useState<Root>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   function fetchProjects() {
     setIsLoading(true);
@@ -18,12 +21,12 @@ function App() {
       .then((json) => {
         setProjects(json);
         setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching projects:", error);
+        setIsLoading(false);
       });
   }
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
 
   return (
     <>

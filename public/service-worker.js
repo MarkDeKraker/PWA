@@ -1,47 +1,95 @@
 // service-worker.js
 importScripts('https://cdn.jsdelivr.net/npm/localforage/dist/localforage.min.js');
 
-const cacheName = 'my-cache';
-const dataStore = localforage.createInstance({
-  name: 'my-data-store'
+const viteFilesToCache = [
+  '/assets/',
+  '/assets/index.js',
+  '/assets/index.css',
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("prg9-cache").then((cache) => {
+      return cache.addAll([
+        "/",
+        "/index.html",
+        "/offline.html",
+        ...viteFilesToCache, 
+      ]);
+    })
+  );
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.open(cacheName)
-      .then(cache => cache.match(event.request))
-      .then(response => {
-        if (response) {
+  const url = new URL(event.request.url);
+
+  if (url.origin === 'https://cmgt.hr.nl' && url.pathname === '/api/projects') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const responseClone = response.clone();
+          saveDataToIndexedDB(responseClone);
           return response;
-        }
-        return fetch(event.request)
-          .then(response => {
-            const clonedResponse = response.clone();
-            caches.open(cacheName)
-              .then(cache => cache.put(event.request, clonedResponse));
-            return response;
+        })
+        .catch(() => {
+          return loadFromIndexedDB();
+        })
+    );
+  } else if (url.origin === 'https://cmgt.hr.nl' && url.pathname === '/api/tags') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          return response;
+        })
+        .catch(() => {
+          return new Response(JSON.stringify({ message: 'Online connection is required to fetch tags' }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
           });
-      })
-      .catch(error => {
-        // Handle errors
-      })
-  );
+        })
+    );
+}
+ else {
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => {
+          return response || fetch(event.request);
+        })
+        .catch(() => {
+          return caches.match('/offline.html');
+        })
+    );
+  }
 });
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName)
-      .then(cache => {
-        cache.addAll([
-          // Add files you want to cache during installation
-        ]);
-      })
-  );
-});
+function saveDataToIndexedDB(response) {
+  const dataStore = localforage.createInstance({
+    name: "prg9-store",
+  });
+  response.json().then(data => {
+    data.data.forEach(project => {
+      dataStore.setItem(`project-${project.project.id}`, project)
+        .catch(error => console.error(`Error saving project ${project.project.id} to IndexedDB:`, error));
+    });
+  });
+}
 
-// Function to save fetched data into IndexedDB using LocalForage
-function saveDataToIndexedDB(data) {
-  dataStore.setItem('key', data)
-    .then(() => console.log('Data saved to IndexedDB'))
-    .catch(error => console.error('Error saving data to IndexedDB:', error));
+function loadFromIndexedDB() {
+  const dataStore = localforage.createInstance({
+    name: "prg9-store",
+  });
+  return dataStore.keys()
+    .then(keys => Promise.all(keys.map(key => dataStore.getItem(key))))
+    .then(data => {
+      const responseData = {
+        data: data,
+      };
+      return new Response(JSON.stringify(responseData), {
+        headers: { "Content-Type": "application/json" },
+      });
+    })
+    .catch(error => {
+      console.error("Error loading data from IndexedDB:", error);
+      throw error;
+    });
 }

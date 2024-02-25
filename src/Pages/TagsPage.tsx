@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Root } from "../types/Tags";
+import { Tag } from "../types/ShowCases";
+import useOnlineStatus from "../hooks/useOnlineStatus";
 
 export default function TagsPage() {
-  const [tags, setTags] = useState<Root>();
-
+  const [tags, setTags] = useState<Tag[]>();
+  // const [hasError, setHasError] = useState<boolean>(false);
+  const isOnline = useOnlineStatus();
   useEffect(() => {
     fetch(`https://cmgt.hr.nl/api/tags`, {
       method: "GET",
@@ -11,19 +13,33 @@ export default function TagsPage() {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((json) => setTags(json));
+      .then(async (response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setTags(json.data);
+      })
+      .catch((error) => {
+        console.log("There was an error", error);
+      });
   }, []);
 
   return (
     <>
       <div className="flex justify-center my-2">
         <div className="grid grid-cols-2 gap-2">
-          {tags?.data.map((tag) => (
-            <div className="border-2 p-2 text-center rounded-lg shadow-md">
-              {tag.name}
-            </div>
-          ))}
+          {isOnline ? (
+            tags?.map((tag) => (
+              <div
+                key={tag.id}
+                className="border-2 p-2 text-center rounded-lg shadow-md"
+              >
+                {tag.name}
+              </div>
+            ))
+          ) : (
+            <div>Tags online work when connected to a network!</div>
+          )}
         </div>
       </div>
     </>

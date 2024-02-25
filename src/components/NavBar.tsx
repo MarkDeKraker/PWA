@@ -1,14 +1,18 @@
 import { Button } from "@mantine/core";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useOnlineStatus from "../hooks/useOnlineStatus";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [isOnline, setIsOnline] = useState<boolean>(true);
+  const isOnline = useOnlineStatus();
+
   return (
     <nav className="bg-black p-4 flex justify-between">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="/" className="text-white text-2xl font-semibold">
+        <a
+          onClick={() => navigate("/")}
+          className="text-white text-2xl font-semibold"
+        >
           Progessive Web App
         </a>
       </div>
