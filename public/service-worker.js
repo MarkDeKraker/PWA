@@ -1,32 +1,17 @@
-// service-worker.js
-importScripts('https://cdn.jsdelivr.net/npm/localforage/dist/localforage.min.js');
+// Import localforage script
+importScripts(
+  "https://cdn.jsdelivr.net/npm/localforage/dist/localforage.min.js"
+);
 
-const viteFilesToCache = [
-  '/assets/',
-  '/assets/index.js',
-  '/assets/index.css',
-];
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("prg9-cache").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/offline.html",
-        ...viteFilesToCache, 
-      ]);
-    })
-  );
-});
-
-self.addEventListener('fetch', event => {
+// Listen for fetch requests
+self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  if (url.origin === 'https://cmgt.hr.nl' && url.pathname === '/api/projects') {
+  // Save projects to IndexDB when online
+  if (url.origin === "https://cmgt.hr.nl" && url.pathname === "/api/projects") {
     event.respondWith(
       fetch(event.request)
-        .then(response => {
+        .then((response) => {
           const responseClone = response.clone();
           saveDataToIndexedDB(responseClone);
           return response;
@@ -35,52 +20,75 @@ self.addEventListener('fetch', event => {
           return loadFromIndexedDB();
         })
     );
-  } else if (url.origin === 'https://cmgt.hr.nl' && url.pathname === '/api/tags') {
+    // Only return tags when service is online, otherwise return http error
+  } else if (
+    url.origin === "https://cmgt.hr.nl" &&
+    url.pathname === "/api/tags"
+  ) {
     event.respondWith(
       fetch(event.request)
-        .then(response => {
+        .then((response) => {
           return response;
         })
         .catch(() => {
-          return new Response(JSON.stringify({ message: 'Online connection is required to fetch tags' }), {
-            status: 503,
-            headers: { 'Content-Type': 'application/json' }
-          });
+          return new Response(
+            JSON.stringify({
+              message: "Online connection is required to fetch tags",
+            }),
+            {
+              status: 503,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
         })
     );
-}
- else {
+    // For all other requests, get data from the cache or make the request when online
+  } else {
     event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          return response || fetch(event.request);
-        })
-        .catch(() => {
-          return caches.match('/offline.html');
-        })
+      caches.match(event.request).then(function (response) {
+        if (response) {
+          return response;
+        } else {
+          return fetch(event.request).then(function (res) {
+            return caches.open("prg9-cache").then(function (cache) {
+              cache.put(event.request.url, res.clone());
+              return res;
+            });
+          });
+        }
+      })
     );
   }
 });
 
+// Function to store the projecst to the IndexDB
 function saveDataToIndexedDB(response) {
   const dataStore = localforage.createInstance({
     name: "prg9-store",
   });
-  response.json().then(data => {
-    data.data.forEach(project => {
-      dataStore.setItem(`project-${project.project.id}`, project)
-        .catch(error => console.error(`Error saving project ${project.project.id} to IndexedDB:`, error));
+  response.json().then((data) => {
+    data.data.forEach((project) => {
+      dataStore
+        .setItem(`project-${project.project.id}`, project)
+        .catch((error) =>
+          console.error(
+            `Error saving project ${project.project.id} to IndexedDB:`,
+            error
+          )
+        );
     });
   });
 }
 
+// Function to load the projecst from the IndexDB
 function loadFromIndexedDB() {
   const dataStore = localforage.createInstance({
     name: "prg9-store",
   });
-  return dataStore.keys()
-    .then(keys => Promise.all(keys.map(key => dataStore.getItem(key))))
-    .then(data => {
+  return dataStore
+    .keys()
+    .then((keys) => Promise.all(keys.map((key) => dataStore.getItem(key))))
+    .then((data) => {
       const responseData = {
         data: data,
       };
@@ -88,7 +96,7 @@ function loadFromIndexedDB() {
         headers: { "Content-Type": "application/json" },
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error loading data from IndexedDB:", error);
       throw error;
     });
